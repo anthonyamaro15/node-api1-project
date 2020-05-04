@@ -2,7 +2,11 @@ const express = require("express");
 
 const route = express.Router();
 
-let users = [{ id: 1, name: "lala", bio: "testing lala" }];
+let users = [
+  { id: "1", name: "lala1", bio: "testing lala" },
+  { id: "2", name: "lala2", bio: "testing lala" },
+  { id: "3", name: "lala3", bio: "testing lala" },
+];
 
 // POST /api/users
 route.post("/", (req, res) => {
@@ -31,7 +35,7 @@ route.get("/", (req, res) => {
 // GET /api/users/:id
 route.get("/:id", (req, res) => {
   const { id } = req.params;
-  const user = users.find((u) => u.id === Number(id));
+  const user = users.find((u) => u.id === id);
 
   if (!user) {
     res
@@ -45,7 +49,7 @@ route.get("/:id", (req, res) => {
 // DELETE /api/users/:id
 route.delete("/:id", (req, res) => {
   const { id } = req.params;
-  users = users.filter((u) => u.id !== Number(id));
+  users = users.filter((u) => u.id !== id);
   console.log("user here ", users);
   if (!users) {
     res
@@ -60,7 +64,7 @@ route.delete("/:id", (req, res) => {
 route.put("/:id", (req, res) => {
   const { id } = req.params;
   const { name, bio } = req.body;
-  const user = users.find((u) => u.id === Number(id));
+  const user = users.find((u) => u.id === id);
   if (!user) {
     res
       .status(404)
